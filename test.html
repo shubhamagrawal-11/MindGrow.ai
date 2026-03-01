@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Function Test</title>
+</head>
+<body>
+    <button onclick="testFunction()">Test Button</button>
+    <div id="output"></div>
+    
+    <script>
+        // Check if functions are defined
+        window.addEventListener('load', function() {
+            const output = document.getElementById('output');
+            output.innerHTML = '<h3>Function Check:</h3>';
+            output.innerHTML += '<p>doLogin: ' + (typeof doLogin) + '</p>';
+            output.innerHTML += '<p>doRegister: ' + (typeof doRegister) + '</p>';
+            output.innerHTML += '<p>switchAuthTab: ' + (typeof switchAuthTab) + '</p>';
+            output.innerHTML += '<p>selectRole: ' + (typeof selectRole) + '</p>';
+            output.innerHTML += '<p>AVATARS: ' + (typeof AVATARS) + '</p>';
+            output.innerHTML += '<p>currentUser: ' + (typeof currentUser) + '</p>';
+        });
+        
+        function testFunction() {
+            alert('Test function works!');
+        }
+    </script>
+    
+    <script src="JS/app.js" defer></script>
+    <script src="JS/auth.js" defer></script>
+</body>
+</html>

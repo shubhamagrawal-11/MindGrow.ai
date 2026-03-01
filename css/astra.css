@@ -1,0 +1,319 @@
+/* Filename: astra.css */
+
+#astra-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9000;
+}
+
+#astra-toggle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00957a, #007a65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 24px rgba(0, 149, 122, 0.45);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+  position: relative;
+}
+
+#astra-toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 32px rgba(0, 149, 122, 0.55);
+}
+
+.astra-pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 149, 122, 0.5);
+  animation: astraPulse 2.2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes astraPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.astra-notif {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  background: #e84c4c;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+#astra-panel {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 16px 60px rgba(26, 23, 20, 0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 590px;
+  transform: scale(0.9) translateY(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.22s ease;
+}
+
+#astra-panel.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.astra-hdr {
+  background: linear-gradient(135deg, #00957a, #007a65);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.astra-hdr-av {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.astra-hdr-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  font-family: "Fraunces", serif;
+}
+
+.astra-hdr-sub {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 1px;
+}
+
+.astra-hdr-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 2px;
+  transition: 0.15s;
+  line-height: 1;
+}
+
+.astra-hdr-close:hover {
+  color: #fff;
+}
+
+.astra-disc {
+  background: #fffbeb;
+  border-bottom: 1px solid #fef3c7;
+  padding: 7px 14px;
+  font-size: 0.68rem;
+  color: #92400e;
+  text-align: center;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.astra-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f5f4ef;
+}
+
+.astra-msgs::-webkit-scrollbar {
+  width: 3px;
+}
+
+.astra-msgs::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.amsg {
+  max-width: 90%;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  animation: amsgIn 0.25s ease both;
+}
+
+@keyframes amsgIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.amsg-bot {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px 14px 14px 4px;
+  padding: 10px 13px;
+  align-self: flex-start;
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.amsg-user {
+  background: linear-gradient(135deg, #00957a, #007a65);
+  color: #fff;
+  border-radius: 14px 14px 4px 14px;
+  padding: 10px 13px;
+  align-self: flex-end;
+}
+
+.amsg-sender {
+  font-size: 0.62rem;
+  color: var(--ink3);
+  margin-bottom: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.astra-typing-ind {
+  display: flex;
+  gap: 4px;
+  padding: 10px 13px;
+  align-items: center;
+  align-self: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.astra-typing-ind span {
+  width: 6px;
+  height: 6px;
+  background: var(--ink3);
+  border-radius: 50%;
+  animation: tdot 0.9s ease-in-out infinite;
+}
+
+.astra-typing-ind span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.astra-typing-ind span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes tdot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-5px);
+  }
+}
+
+.astra-quick {
+  padding: 9px 11px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.aq-btn {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  color: var(--ink2);
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: 0.71rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.18s;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.aq-btn:hover {
+  background: #fff;
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+#astra-input {
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border);
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  outline: none;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  flex-shrink: 0;
+}
+
+#astra-input::placeholder {
+  color: var(--ink3);
+}
+
+#astra-input:focus {
+  background: #fff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #astra-panel {
+    width: calc(100vw - 48px);
+    max-width: 360px;
+  }
+}

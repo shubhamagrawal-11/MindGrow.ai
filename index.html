@@ -1,0 +1,674 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindGrow.AI — Gamified Learning with Emotional Intelligence</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/Component.css" />
+    <link rel="stylesheet" href="css/Screens.css" />
+    <link rel="stylesheet" href="css/astra.css" />
+  </head>
+  <body>
+    <div class="ambient">
+      <div class="amb-circle amb-1"></div>
+      <div class="amb-circle amb-2"></div>
+      <div class="amb-circle amb-3"></div>
+    </div>
+
+    <nav class="top-nav hidden" id="topNav">
+      <div class="nav-logo">MindGrow<span>.AI</span></div>
+      <div class="nav-center">
+        <button class="nav-tab" data-screen="screen-student">Dashboard</button>
+        <button class="nav-tab" data-screen="screen-quiz">Quiz</button>
+        <button class="nav-tab" data-screen="screen-focus">Focus Tools</button>
+        <button class="nav-tab" data-screen="screen-growth">Growth</button>
+        <button class="nav-tab" data-screen="screen-teacher">Teacher</button>
+      </div>
+      <div class="nav-right">
+        <span class="xp-chip hidden" id="globalXP">0 XP</span>
+        <div
+          class="avatar-sm"
+          id="userAvatar"
+          onclick="logout()"
+          title="Logout"
+        >
+          🦁
+        </div>
+      </div>
+    </nav>
+
+    <div id="screen-auth" class="screen active">
+      <div class="auth-container">
+        <div class="auth-logo">
+          <h1>MindGrow<span>.AI</span></h1>
+          <p>Gamified Learning with Emotional Intelligence</p>
+        </div>
+        <div class="auth-card">
+          <div class="auth-tabs">
+            <button
+              class="auth-tab active"
+              data-tab="login"
+              onclick="switchAuthTab('login')"
+            >
+              Login
+            </button>
+            <button
+              class="auth-tab"
+              data-tab="register"
+              onclick="switchAuthTab('register')"
+            >
+              Register
+            </button>
+          </div>
+
+          <div id="auth-login" class="auth-form-panel active">
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                class="form-input"
+                id="login-email"
+                placeholder="student@example.com"
+                autocomplete="email"
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                class="form-input"
+                id="login-pass"
+                placeholder="••••••••"
+                autocomplete="current-password"
+              />
+            </div>
+            <button class="btn btn-primary btn-full btn-lg" onclick="doLogin()">
+              Login
+            </button>
+            <div class="auth-footer">
+              Don't have an account?
+              <a onclick="switchAuthTab('register')">Register</a>
+            </div>
+          </div>
+
+          <div id="auth-register" class="auth-form-panel">
+            <div class="role-select">
+              <button
+                class="role-btn active"
+                data-role="student"
+                onclick="selectRole('student')"
+              >
+                <div class="role-icon">🎓</div>
+                <div class="role-label">Student</div>
+              </button>
+              <button
+                class="role-btn"
+                data-role="teacher"
+                onclick="selectRole('teacher')"
+              >
+                <div class="role-icon">👩‍🏫</div>
+                <div class="role-label">Teacher</div>
+              </button>
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input
+                type="text"
+                class="form-input"
+                id="reg-name"
+                placeholder="Your full name"
+              />
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                class="form-input"
+                id="reg-email"
+                placeholder="you@example.com"
+              />
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="password"
+                class="form-input"
+                id="reg-pass"
+                placeholder="••••••••"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                >Grade / Class <span class="text-muted">(Optional)</span></label
+              >
+              <input
+                type="text"
+                class="form-input"
+                id="reg-grade"
+                placeholder="e.g. 10th Grade"
+              />
+            </div>
+            <div class="form-group">
+              <label>Choose Avatar</label>
+              <div class="avatar-picker" id="avatarPicker"></div>
+            </div>
+            <button
+              class="btn btn-primary btn-full btn-lg"
+              onclick="doRegister()"
+            >
+              Create Account
+            </button>
+            <div class="disclaimer-box">
+              <strong>Disclaimer:</strong> Demo only. Use fake credentials. All
+              data is stored locally in your browser.
+            </div>
+            <div class="auth-footer">
+              Already have an account?
+              <a onclick="switchAuthTab('login')">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-mood" class="screen">
+      <div class="mood-wrap">
+        <div class="mood-header">
+          <h2>How are you feeling today?</h2>
+          <p>We'll adjust your learning experience accordingly.</p>
+        </div>
+        <div class="mood-grid">
+          <div class="mood-opt" onclick="selectMood('Happy')">
+            <span class="m-emoji">😊</span><span class="m-label">Happy</span>
+          </div>
+          <div class="mood-opt" onclick="selectMood('Motivated')">
+            <span class="m-emoji">💪</span
+            ><span class="m-label">Motivated</span>
+          </div>
+          <div class="mood-opt" onclick="selectMood('Neutral')">
+            <span class="m-emoji">😐</span><span class="m-label">Neutral</span>
+          </div>
+          <div class="mood-opt" onclick="selectMood('Stressed')">
+            <span class="m-emoji">😟</span><span class="m-label">Stressed</span>
+          </div>
+          <div class="mood-opt" onclick="selectMood('Sad')">
+            <span class="m-emoji">😔</span><span class="m-label">Sad</span>
+          </div>
+        </div>
+        <div class="mood-response-box" id="moodResponse"></div>
+        <div class="mood-tip-box" id="moodTip"></div>
+        <button class="btn btn-primary btn-full" onclick="doMoodCheck()">
+          Continue to Dashboard
+        </button>
+      </div>
+    </div>
+
+    <div id="screen-student" class="screen">
+      <div class="page-wrap">
+        <div class="hero-strip">
+          <span class="hero-avatar" id="heroAvatar">🦁</span>
+          <span class="hero-name" id="heroName">Student Name</span>
+          <span class="hero-sub" id="heroGrade">Grade 10</span>
+          <div class="hero-stats">
+            <div class="hstat">
+              <div class="v" id="heroXP">0</div>
+              <div class="l">Total XP</div>
+            </div>
+            <div class="hstat">
+              <div class="v" id="heroStreak">1</div>
+              <div class="l">Day Streak</div>
+            </div>
+            <div class="hstat">
+              <div class="v" id="heroQuizzes">0</div>
+              <div class="l">Quizzes Done</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="card stat-tile">
+            <div class="icon">🏆</div>
+            <div class="val" id="statLevel">Beginner</div>
+            <div class="lbl">Current Level</div>
+          </div>
+          <div class="card stat-tile">
+            <div class="icon">🔥</div>
+            <div class="val" id="statStreak">1</div>
+            <div class="lbl">Day Streak</div>
+          </div>
+          <div class="card stat-tile">
+            <div class="icon">🎯</div>
+            <div class="val" id="statAcc">0%</div>
+            <div class="lbl">Accuracy</div>
+          </div>
+          <div class="card stat-tile">
+            <div class="icon">⏱️</div>
+            <div class="val" id="sessionTimer">00:00</div>
+            <div class="lbl">Session Time</div>
+          </div>
+        </div>
+
+        <div class="mission-banner">
+          <div>
+            <h3>Daily Mission</h3>
+            <p>Complete 1 quiz to keep your streak!</p>
+          </div>
+          <button class="btn btn-full btn-sm" onclick="navTo('screen-quiz')">
+            Start Quiz →
+          </button>
+        </div>
+
+        <div class="section-title">Your Badges</div>
+        <div class="badges-wrap" id="badgeGrid"></div>
+
+        <div class="level-bar-wrap">
+          <div class="level-labels">
+            <span class="fw-700" id="currentLevel">Beginner</span>
+            <span class="text-muted text-sm" id="levelXP">0 / 100 XP</span>
+          </div>
+          <div class="progress-track progress-teal">
+            <div class="progress-fill" id="levelBar" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-quiz" class="screen">
+      <div class="page-wrap">
+        <div class="quiz-top">
+          <h2>
+            Quiz Quest <span class="text-muted" id="qNum">1</span>/<span
+              id="qTotal"
+              >6</span
+            >
+          </h2>
+          <span class="diff-badge" id="diffBadge">Medium</span>
+        </div>
+
+        <div class="timer-strip">
+          <div class="timer-circle" id="timerCircle">30</div>
+          <div
+            class="progress-track progress-amber"
+            style="flex: 1; height: 8px"
+          >
+            <div class="progress-fill" id="timerBar" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <div class="q-progress" id="qProgress"></div>
+        <div class="card q-card" id="qCard"></div>
+        <div class="xp-anim" id="xpAnim" style="display: none"></div>
+
+        <button
+          class="btn btn-primary btn-full btn-lg mt-16"
+          id="qNextBtn"
+          onclick="nextQuestion()"
+          style="display: none"
+        >
+          Next Question →
+        </button>
+      </div>
+    </div>
+
+    <div id="screen-results" class="screen">
+      <div class="results-wrap">
+        <div class="results-card">
+          <span class="results-trophy" id="resTrophy">🏆</span>
+          <h2 id="resTitle">Quest Complete!</h2>
+          <p class="text-muted mb-16" id="resSub">
+            0 of 6 correct · Medium difficulty
+          </p>
+
+          <div class="results-score" id="resScore">0/6</div>
+
+          <div class="results-stats-row">
+            <div class="rs">
+              <div class="rv" id="resXPEarned">+0</div>
+              <div class="rl">XP Earned</div>
+            </div>
+            <div class="rs">
+              <div class="rv" id="resAccuracy">0%</div>
+              <div class="rl">Accuracy</div>
+            </div>
+            <div class="rs">
+              <div class="rv" id="resNewLevel">Beginner</div>
+              <div class="rl">New Level</div>
+            </div>
+          </div>
+
+          <div id="newBadgesSection"></div>
+
+          <button
+            class="btn btn-primary btn-full btn-lg mt-16"
+            onclick="navTo('screen-student')"
+          >
+            Back to Dashboard
+          </button>
+          <button class="btn btn-ghost btn-full mt-8" onclick="initQuiz()">
+            Retake Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-focus" class="screen">
+      <div class="page-wrap page-wrap-narrow">
+        <div class="focus-tabs">
+          <button class="focus-tab active" onclick="switchFocusTab('breath')">
+            Breathing
+          </button>
+          <button class="focus-tab" onclick="switchFocusTab('timer')">
+            Timer
+          </button>
+          <button class="focus-tab" onclick="switchFocusTab('reflect')">
+            Reflection
+          </button>
+        </div>
+
+        <div id="fp-breath" class="focus-panel active">
+          <div class="breathing-container">
+            <div class="breath-ring">
+              <div class="breath-inner" id="breathInner">Breathe<br />In</div>
+            </div>
+            <div class="breath-status" id="breathStatus">Ready</div>
+            <div class="breath-count" id="breathCount">60</div>
+          </div>
+          <button
+            class="btn btn-primary btn-full"
+            id="breathBtn"
+            onclick="toggleBreathing()"
+          >
+            ▶ Start Breathing
+          </button>
+        </div>
+
+        <div id="fp-timer" class="focus-panel">
+          <div class="card card-dark">
+            <div class="focus-timer-big" id="focusTimerDisplay">05:00</div>
+            <div
+              class="progress-track progress-indigo"
+              style="height: 12px; margin: 12px 0"
+            >
+              <div
+                class="progress-fill"
+                id="focusTimerBar"
+                style="width: 100%"
+              ></div>
+            </div>
+          </div>
+          <button
+            class="btn btn-primary btn-full mt-16"
+            id="focusTimerBtn"
+            onclick="toggleFocusTimer()"
+          >
+            ▶ Start
+          </button>
+          <button
+            class="btn btn-ghost btn-full mt-8"
+            onclick="resetFocusTimer()"
+          >
+            Reset Timer
+          </button>
+        </div>
+
+        <div id="fp-reflect" class="focus-panel">
+          <div class="reflection-prompt" id="reflectionPrompt">
+            Loading prompt…
+          </div>
+          <textarea
+            class="reflection-input"
+            id="reflectionText"
+            placeholder="Write your thoughts here…"
+          ></textarea>
+          <div class="flex-gap mt-12">
+            <button class="btn btn-primary flex-1" onclick="saveReflection()">
+              Save Reflection
+            </button>
+            <button class="btn btn-ghost" onclick="newPrompt()">
+              New Prompt
+            </button>
+          </div>
+          <div
+            id="reflectionSaved"
+            style="display: none"
+            class="text-muted text-sm mt-8"
+          >
+            ✅ Reflection saved! +5 XP
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-teacher" class="screen">
+      <div class="page-wrap">
+        <div class="teacher-hero">
+          <h2>Teacher Dashboard</h2>
+          <p>Monitor class progress and engagement</p>
+          <div class="teacher-stats">
+            <div class="t-stat">
+              <div class="tv" id="t-total">0</div>
+              <div class="tl">Students</div>
+            </div>
+            <div class="t-stat">
+              <div class="tv" id="t-active">0</div>
+              <div class="tl">Active</div>
+            </div>
+            <div class="t-stat">
+              <div class="tv" id="t-avgxp">0</div>
+              <div class="tl">Avg XP</div>
+            </div>
+            <div class="t-stat">
+              <div class="tv" id="t-atrisk">0</div>
+              <div class="tl">At Risk</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-20">
+          <div class="card">
+            <div class="section-title">Avg Engagement</div>
+            <div class="flex-between">
+              <span class="display" id="t-avgEng">0%</span>
+              <span class="pill pill-amber">Weekly</span>
+            </div>
+            <div
+              class="progress-track progress-indigo mt-8"
+              style="height: 10px"
+            >
+              <div
+                class="progress-fill"
+                id="t-avgEngBar"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-title">Avg Accuracy</div>
+            <div class="flex-between">
+              <span class="display" id="t-avgAcc">0%</span>
+              <span class="pill pill-amber">Weekly</span>
+            </div>
+            <div class="progress-track progress-teal mt-8" style="height: 10px">
+              <div
+                class="progress-fill"
+                id="t-avgAccBar"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Student Analytics</div>
+        <div class="card card-sm" style="overflow-x: auto">
+          <table class="student-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Level</th>
+                <th>XP</th>
+                <th>Accuracy</th>
+                <th>Engagement</th>
+                <th>Moods</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-growth" class="screen">
+      <div class="page-wrap">
+        <div class="section-title">Key Metrics</div>
+        <div class="grid-4 mb-20">
+          <div class="card growth-metric">
+            <div class="gm-val" id="g-xp">0</div>
+            <div class="gm-lbl">Total XP</div>
+            <div class="gm-trend trend-up" id="g-xp-trend">
+              ↑ +0 this session
+            </div>
+          </div>
+          <div class="card growth-metric">
+            <div class="gm-val" id="g-acc">0%</div>
+            <div class="gm-lbl">Accuracy</div>
+            <div class="gm-trend trend-up" id="g-acc-trend">
+              ↑ Above average
+            </div>
+          </div>
+          <div class="card growth-metric">
+            <div class="gm-val" id="g-time">0m</div>
+            <div class="gm-lbl">Session Time</div>
+            <div class="gm-trend trend-up">↑ Consistent</div>
+          </div>
+          <div class="card growth-metric">
+            <div class="gm-val" id="g-quizzes">0</div>
+            <div class="gm-lbl">Quizzes Done</div>
+            <div class="gm-trend trend-up" id="g-quiz-trend">
+              ↑ Great consistency!
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">XP Growth</div>
+        <div class="card mb-20"><div class="xp-graph" id="xpGraph"></div></div>
+
+        <div class="section-title">Mood Timeline</div>
+        <div class="card mb-20">
+          <div class="mood-timeline" id="moodTimeline"></div>
+        </div>
+
+        <div class="section-title">Retention Score</div>
+        <div class="card mb-20">
+          <div class="retention-ring">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="38" class="ring-bg"></circle>
+              <circle
+                cx="50"
+                cy="50"
+                r="38"
+                class="ring-fill"
+                id="retentionRing"
+                stroke-dasharray="239 239"
+                stroke-dashoffset="239"
+              ></circle>
+            </svg>
+            <div class="ring-val" id="retentionVal">0%</div>
+          </div>
+          <p class="text-center text-muted">
+            Based on engagement and consistency
+          </p>
+        </div>
+
+        <div class="section-title">Accuracy Breakdown</div>
+        <div class="card mb-20" id="accBreakdown"></div>
+
+        <div class="section-title">Level Breakdown</div>
+        <div class="card" id="levelBreakdown"></div>
+        <p class="text-center text-muted mt-8" id="nextLevelNote">
+          0 XP to Next Level
+        </p>
+      </div>
+    </div>
+
+    <div id="toast" class="hidden"></div>
+
+    <div id="coachPanel">
+      <div class="coach-card">
+        <div class="coach-header">
+          <span>Coach Tip</span>
+          <button class="coach-close" onclick="hideCoach()">×</button>
+        </div>
+        <div class="coach-msg" id="coachMsg"></div>
+      </div>
+    </div>
+
+    <div id="astra-float" class="hidden">
+      <button id="astra-toggle" onclick="astraToggle()">
+        🤖
+        <div class="astra-pulse-ring"></div>
+        <div id="astra-notif" class="astra-notif hidden">!</div>
+      </button>
+
+      <div id="astra-panel">
+        <div class="astra-hdr">
+          <div class="astra-hdr-av">🤖</div>
+          <div>
+            <div class="astra-hdr-name">Astra AI</div>
+            <div class="astra-hdr-sub">Smart Learning Companion</div>
+          </div>
+          <button class="astra-hdr-close" onclick="astraToggle()">×</button>
+        </div>
+        <div class="astra-disc">
+          Astra uses your progress data for personalised tips. Not a real AI —
+          demo only.
+        </div>
+        <div class="astra-msgs" id="astra-msgs"></div>
+        <div class="astra-quick">
+          <button class="aq-btn" onclick="astraAction('explain')">
+            📖 Explain Last
+          </button>
+          <button class="aq-btn" onclick="astraAction('improve')">
+            🎯 Improve Score
+          </button>
+          <button class="aq-btn" onclick="astraAction('strategy')">
+            🧠 Study Strategy
+          </button>
+          <button class="aq-btn" onclick="astraAction('stuck')">
+            😰 Feeling Stuck
+          </button>
+          <button class="aq-btn" onclick="astraAction('challenge')">
+            🚀 Challenge
+          </button>
+          <button class="aq-btn" onclick="astraAction('progress')">
+            📊 Progress Insight
+          </button>
+        </div>
+        <input
+          type="text"
+          id="astra-input"
+          placeholder="Ask me anything…"
+          onkeydown="if (event.key === 'Enter') astraSend();"
+        />
+      </div>
+    </div>
+
+    <script src="JS/app.js" defer></script>
+    <script src="JS/auth.js" defer></script>
+    <script src="JS/mood.js" defer></script>
+    <script src="JS/student.js" defer></script>
+    <script src="JS/quiz.js" defer></script>
+    <script src="JS/results.js" defer></script>
+    <script src="JS/focus.js" defer></script>
+    <script src="JS/teacher.js" defer></script>
+    <script src="JS/growth.js" defer></script>
+    <script src="JS/astra.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+/* Filename: base.css */
+
+:root {
+  --bg: #f5f4ef;
+  --surface: #ffffff;
+  --surface2: #f0ede6;
+  --border: #e2ddd6;
+  --ink: #1a1714;
+  --ink2: #5a534a;
+  --ink3: #9a9088;
+  --teal: #00957a;
+  --teal-lt: #e6f5f1;
+  --teal-md: #b3e0d8;
+  --amber: #e8820c;
+  --amber-lt: #fef3e2;
+  --rose: #e84c4c;
+  --rose-lt: #fdeaea;
+  --indigo: #4f46e5;
+  --indigo-lt: #eef2ff;
+  --gold: #d4a017;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow: 0 2px 12px rgba(26, 23, 20, 0.08);
+  --shadow-lg: 0 8px 40px rgba(26, 23, 20, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: "Fraunces", serif;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.4s ease both;
+}
+
+.delay-1 {
+  animation-delay: 0.05s;
+}
+
+.delay-2 {
+  animation-delay: 0.1s;
+}
+
+.delay-3 {
+  animation-delay: 0.15s;
+}
+
+.delay-4 {
+  animation-delay: 0.2s;
+}
+
+.delay-5 {
+  animation-delay: 0.25s;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .hero-stats {
+    gap: 16px;
+  }
+  .mood-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .top-nav .nav-center {
+    display: none;
+  }
+  .auth-card {
+    padding: 24px 20px;
+  }
+  .results-card {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mood-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .mood-opt .m-emoji {
+    font-size: 26px;
+  }
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
